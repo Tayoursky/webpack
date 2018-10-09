@@ -20,8 +20,22 @@ let conf = {
             },
             {
               test: /\.styl$/,
-              // loader: 'style-loader!css-loader!postcss-loader!stylus-loader', 'postcss-loader',
-              loader: ExtractTextPlugin.extract(['css-loader', 'stylus-loader'])
+              // loader: ExtractTextPlugin.extract(['css-loader', 'stylus-loader'])
+
+              use: ExtractTextPlugin.extract({
+                use: [
+                    {
+                      loader: 'css-loader'
+                    }
+                    ,{
+                      loader: 'stylus-loader'
+                      ,options: {
+                        use: [require('nib')()]
+                        ,import: ['~nib/lib/nib/index.styl']
+                      }
+                    }
+                  ]
+                })
             }
 
         ]
